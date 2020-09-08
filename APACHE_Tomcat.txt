@@ -85,3 +85,7 @@ By default port will be 8443 when we enable SSL. We have to give pathto .jks fil
 
 Save the changed server.xml, re-start the instance. Now, try to connect to 8443 port with https request (exaple https://localhost:8443 ). It will work.
 
+//////////
+If I compare this to our application, we do have SSL enabled, and could see more parameters configured. PKCS12 file is used to store keys and not JKS file.
+//////////
+
