@@ -1,0 +1,87 @@
+War deployment
+Deployment directory:
+ 1. C:\Program Files\Apache Software Foundation\Tomcat 9.0\webapps (In my system)
+ 2. /opt/middleware/tomcat/instances/CSTX-*/webapps/ (in our projects)
+ 
+So we can manually place files here or we can do this from TOMCAT console or with automation like RLM what we use in our project.
+
+*Why I don't have to re-start app on my windows but we re-start app in our project
+	- Resaon, see below from server.xml. "autodeploy" paramtetr is True here which is 'False' in our application. That is why.
+	
+	 <!-- Use the LockOutRealm to prevent attempts to guess user passwords
+           via a brute-force attack -->
+      <Realm className="org.apache.catalina.realm.LockOutRealm">
+        <!-- This Realm uses the UserDatabase configured in the global JNDI
+             resources under the key "UserDatabase".  Any edits
+             that are performed against this UserDatabase are immediately
+             available for use by the Realm.  -->
+        <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
+               resourceName="UserDatabase"/>
+      </Realm>
+
+      <Host name="localhost"  appBase="webapps"
+            unpackWARs="true" autoDeploy="true">
+
+        <!-- SingleSignOn valve, share authentication between web applications
+             Documentation at: /docs/config/valve.html -->
+        <!--
+        <Valve className="org.apache.catalina.authenticator.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Security overview::
+ Imp file: tomcat-user.xml
+ 
+SSL: Secure socket layer
+
+encypted connection between client and server which will snet data packets (like password in user.xml)
+
+*Something about SSL,TCL, HTTPS
+
+  SSL stands for Secure Sockets Layer and, in short, it's the standard technology for keeping an internet connection secure and safeguarding any sensitive data that is being sent   between two systems, preventing criminals from reading and modifying any information transferred, including potential personal details. The two systems can be a server and a client (for example, a shopping website and browser)
+  
+  It does this by making sure that any data transferred between users and sites, or between two systems remain impossible to read. It uses encryption algorithms to scramble data in transit.
+  
+  TLS (Transport Layer Security) is just an updated, more secure, version of SSL. 
+  
+  HTTPS (Hyper Text Transfer Protocol Secure) appears in the URL when a website is secured by an SSL certificate. The details of the certificate, including the issuing authority and the corporate name of the website owner, can be viewed by clicking on the lock symbol on the browser bar.
+
+To install and configure SSL/TLS support on Tomcat
+  
+ *JAVA Keytool
+  The Java Keytool is a command line tool which can generate public key / private key pairs and store them in a Java KeyStore (.jks fiel in binary format which is not possible to read). abc@123
+  
+Go to JAVA home in C drive, and in JRE, in bin we have keytool executable file. Coomand we used to generate key and store it to .jks file
+  >keytool -genkey -keyalg RSA -alias MyKey -keystore F:\APACHE_TOMCAT\keystore\demokey.jsk
+  >will ask for password and set of question : password abc@123
+  -genkey : to generate key
+  -keyalg : Algorithm used to generate key RSA
+  -alias :
+  -keystore : file .jks will cteaated at given location
+  
+Now we will configure this key in tomcat configuration files.
+
+Go to server.xml in conf folder of tomcat. In server.xml, we have one tag to enable SSL which is commented.
+
+    <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+               maxThreads="150" SSLEnabled="true">
+        <SSLHostConfig>
+            <Certificate certificateKeystoreFile="conf/localhost-rsa.jks"
+                         type="RSA" />
+        </SSLHostConfig>
+    </Connector>
+	
+By default port will be 8443 when we enable SSL. We have to give pathto .jks file and also, one more parameter we have to mention that is, password to .jks fie which we set. Un-comment these lines.
+
+    <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+               maxThreads="150" SSLEnabled="true">
+        <SSLHostConfig>
+            <Certificate certificateKeystoreFile="F:\APACHE_TOMCAT\keystore\demokey.jsk"
+                         type="RSA" 
+						 certificatekeystorePassword="abc@123"
+						 />
+        </SSLHostConfig>
+    </Connector>
+	
+
+Save the changed server.xml, re-start the instance. Now, try to connect to 8443 port with https request (exaple https://localhost:8443 ). It will work.
+
