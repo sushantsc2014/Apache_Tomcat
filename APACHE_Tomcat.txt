@@ -89,3 +89,7 @@ Save the changed server.xml, re-start the instance. Now, try to connect to 8443 
 If I compare this to our application, we do have SSL enabled, and could see more parameters configured. PKCS12 file is used to store keys and not JKS file.
 //////////
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
