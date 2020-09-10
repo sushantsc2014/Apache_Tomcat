@@ -1,0 +1,27 @@
+for High availabiltiy, Zero downtime
+
+1. Horizontal Clustering : We have multiple phisical machines where application is deployed. and there is a load balancer in between which directs the traffic.
+2. Vertical Clustering : Multiple instances on same physical machine.
+
+In our production environment, we have wo DC concept and we have load balancer in between them. Plus, we have two servers in each DC. And we have four instances of apache-tomcat on each one of those servers.
+
+
+ App server           TOMCAT instances
+SW   
+1. swap3p    - CSTX-1, CSTX-2, CSTX-3, CSTX-4
+2. swap4p    - CSTX-1, CSTX-2, CSTX-3, CSTX-4
+
+MW
+3. mwap3p    - CSTX-1, CSTX-2, CSTX-3, CSTX-4
+4. mwap4p    - CSTX-1, CSTX-2, CSTX-3, CSTX-4
+
+
+Having multiple instances on one host nothing but having mutliple tomcat set up on single machine.
+For example: Tomcat on my machine resides into- C:\Program Files\Apache Software Foundation\Tomcat 9.0
+If I make same folder structure multiple times (of couse with few cinfugration chnages in 'conf' files), I have multiples instances. Like, in our production environment, we have four instances on each app server, listening to 4 different ports in server.xml. So we can hange port number for shutdown, connector, and APJ port in server.xml
+
+--AJP Apache Jserv Protocol: Same as https, connects via AJP protocol
+
+We need to have mutiple startup/stop scripts for each of the instances.
+
+
