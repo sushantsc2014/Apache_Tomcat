@@ -1,0 +1,17 @@
+NGINX is a web server. Any web server can act as a load balancer like NGINX, Apache http server.
+
+---------------------------------------------------------------------
+									|->	instance-1:port 8180     
+
+Web browser -->  LOAD BALANCER  -->	|->	instance-2:port 8280
+
+								    |->	instance-3:port 8380
+										
+  CLIENT									  SERVER
+
+----------------------------------------------------------------------
+										
+So the request first will go to LOAD BALANCER and on algorithom it will be processed by any of the instance. And suppose if one of the instance is down, load balancer will route the request ot other instance to process the request.
+We have to do necessary changes in ngix config file or http config files
+
+In same way we can do load balancing for horizontal clustering where we have multiple physical servers with different IP addresses.
