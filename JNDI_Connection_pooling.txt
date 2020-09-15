@@ -1,0 +1,10 @@
+JNDI:: JAVA Naming and Directory Interface
+sort of table which keep sentry of key-value pair. In enterprise application, our applivation running on apache tomcat may have to interact with other application like database servers etc. More the interaction with other applications, more the congiguration changes required. Let say, if or application interacting with Database, so we have to set few paramaeters related to database in configuration chages to connect ot database from our application. This may include database IP addess, database name, uasename, password or other netword related info. And if values of these parametrs changes, we again have to change configuration for apache tomcat, and that may need downtime. To avoid this, we use JNDI.
+
+We keep these parameters and value in JNDI table. Application queries JNDI with knows keys and get all the values for that key. For example, if DATABASE if the 'key', then above mentioned parameters will be 'values' assocoated with 'DATABASE' key. If any updation happens, we only have to change 'values' (host, IP, port etc).
+
+
+Database connection pooling:: 
+Everytime a user connects to database through application a connection is established. If soppoe 'n' number of users are there accesing database, 'n' number of connections will be established. This has effect on performance.
+
+TOMCAT provides provision t create pool of connection objects. So when user wants to connect to DB, it used already existing connection from pool. Group of reserved resources to provide service. (just like employees on bench- ready to use)
