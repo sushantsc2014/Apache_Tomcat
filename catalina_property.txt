@@ -1,0 +1,9 @@
+One of the parameters in catalina property file is
+
+ommon.loader="${catalina.base}/lib","${catalina.base}/lib/*.jar","${catalina.home}/lib","${catalina.home}/lib/*.jar"
+
+library files are mapped to this location with 'lib' folder, this is where you can change folder name or location.
+
+
+
+tomcat.util.scan.StandardJarScanFilter.jarsToSkip=\
