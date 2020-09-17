@@ -1,0 +1,35 @@
+All the logs:: $CATALINA_BASE/logs
+1} catalina.<<date>>.log
+ Logs will be logged when server is starting or coming down, or when you deploy application/redeploy. If port is already in use by someother application, it will give erro in this file or if port numbes are out of raneg etc.
+ 
+2} localhost_access_log.<<date>>
+ To tress comunication with our server from various clients.
+Example logs:: 
+0:0:0:0:0:0:0:1 - - [17/Sep/2020:15:24:55 +0530] "GET / HTTP/1.1" 200 11415
+0:0:0:0:0:0:0:1 - - [17/Sep/2020:15:25:01 +0530] "GET /DemoApp HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [17/Sep/2020:15:25:01 +0530] "GET /DemoApp/ HTTP/1.1" 200 337
+0:0:0:0:0:0:0:1 - - [17/Sep/2020:15:25:02 +0530] "GET /DemoApp/ HTTP/1.1" 200 337	
+<IP adress of client   <date and time>          <GET request for DemoApp>  <respose code>  <send bytes>
+showing 0.0... 
+same m/c >
+
+3} localhost.<<date>>
+ Any exceptions while loading applications is logged into this log file. Errora, complilation errors are logged.
+ 
+4} manager.<<date>>
+ Logs are logged when we access manager application
+
+5} host-manager.<<date>>
+ Logs are logged when we access hot manager application
+ 
+
+6} localhost_access_log.<<date>>
+ These logs are written by this VALVE class present in server.xml in 'conf' folder.
+
+        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
+               prefix="localhost_access_log" suffix=".txt"
+               pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+ 
+ 
+ 
+::::Configurations regarding logging:: $CATALINA_BASE/conf/logging.properties
